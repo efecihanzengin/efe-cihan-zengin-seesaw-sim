@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: rgb(18, 15, 59);
 }
 
 .scene {
@@ -22,7 +22,7 @@ body {
 .plank {
   width: 400px;
   height: 12px;
-  background-color: #e0b87a;
+  background-color: #a8782f;
   transform-origin: center center;
   transition: transform 0.5s ease;
   cursor: pointer;

@@ -8,3 +8,25 @@ plank.addEventListener("click", function (event) {
   console.log(clickX);
   console.log(distanceFromCenter);
 });
+
+const objects = [];
+
+objects.push({
+  weight: weight,
+  distance: distanceFromCenter, // negatif = sol, pozitif = sag
+});
+
+function calculateTorque() {
+  let leftTorque = 0;
+  let rightTorque = 0;
+
+  for (let i = 0; i < objects.length; i++) {
+    if (objects[i].distance < 0) {
+      leftTorque += objects[i].weight * Math.abs(objects[i].distance);
+    } else if (objects[i].distance > 0) {
+      rightTorque += objects[i].weight * objects[i].distance;
+    }
+  }
+
+  return { leftTorque, rightTorque };
+}
