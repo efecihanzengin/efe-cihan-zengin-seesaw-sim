@@ -1,5 +1,14 @@
 const plank = document.querySelector(".plank");
-const objects = [];
+let objects = [];
+
+const saved = JSON.parse(localStorage.getItem("objects"));
+if (saved) {
+  objects = [...saved];
+  for (let object of objects) {
+    createNewWeightObject(object.distance + 200, object.weight);
+  }
+  updateSeesaw();
+}
 
 plank.addEventListener("click", function (event) {
   const click = event.offsetX; // plankin solundan uzakligi
@@ -10,6 +19,8 @@ plank.addEventListener("click", function (event) {
     weight: weight,
     distance: distanceFromCenter, // negatif = sol, pozitif = sag
   });
+
+  localStorage.setItem("objects", JSON.stringify(objects));
 
   createNewWeightObject(click, weight);
   updateSeesaw();
