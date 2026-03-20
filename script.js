@@ -7,10 +7,15 @@ plank.addEventListener("click", function (event) {
   const distanceFromCenter = clickX - rect.width / 2; // formul icin gerekli merkezden ne kadar uzaga tikladigi
   const weight = Math.floor(Math.random() * 10) + 1;
 
+  console.log(rect);
+  console.log(clickX);
+  console.log(distanceFromCenter);
+
   objects.push({
     weight: weight,
     distance: distanceFromCenter, // negatif = sol, pozitif = sag
   });
+  createNewWeightObject(clickX, weight);
   updateSeesaw();
 });
 
@@ -33,4 +38,14 @@ function updateSeesaw() {
   const { leftTorque, rightTorque } = calculateTorque();
   const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
   plank.style.transform = `rotate(${angle}deg)`;
+}
+
+function createNewWeightObject(clickX, weight) {
+  const newObject = document.createElement("div");
+  newObject.classList.add("object");
+
+  newObject.textContent = weight;
+
+  newObject.style.left = clickX - 10 + "px";
+  plank.appendChild(newObject);
 }
