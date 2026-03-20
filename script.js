@@ -19,29 +19,40 @@ function calculateTorque() {
   let leftTorque = 0;
   let rightTorque = 0;
 
+  let leftWeightTotal = 0;
+  let rightWeightTotal = 0;
+
   for (let i = 0; i < objects.length; i++) {
     if (objects[i].distance < 0) {
       leftTorque += objects[i].weight * Math.abs(objects[i].distance);
+      leftWeightTotal += objects[i].weight;
     } else if (objects[i].distance > 0) {
       rightTorque += objects[i].weight * objects[i].distance;
+      rightWeightTotal += objects[i].weight;
     }
   }
 
-  return { leftTorque, rightTorque };
+  return { leftTorque, rightTorque, leftWeightTotal, rightWeightTotal };
 }
 
 function updateSeesaw() {
-  const { leftTorque, rightTorque } = calculateTorque();
+  const { leftTorque, rightTorque, leftWeightTotal, rightWeightTotal } =
+    calculateTorque();
   const angle = Math.max(-30, Math.min(30, (rightTorque - leftTorque) / 10));
   plank.style.transform = `rotate(${angle}deg)`;
+
+  document.getElementById("left-weight").innerText =
+    `Left: ${leftWeightTotal} kg`;
+  document.getElementById("right-weight").innerText =
+    `Right: ${rightWeightTotal} kg`;
 }
 
-function createNewWeightObject(clickX, weight) {
+function createNewWeightObject(click, weight) {
   const newObject = document.createElement("div");
   newObject.classList.add("object");
 
   newObject.textContent = weight;
 
-  newObject.style.left = clickX - 10 + "px";
+  newObject.style.left = click - 10 + "px";
   plank.appendChild(newObject);
 }

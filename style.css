@@ -12,6 +12,13 @@ body {
   background-color: rgb(18, 15, 59);
 }
 
+#left-weight {
+  color: whitesmoke;
+}
+#right-weight {
+  color: whitesmoke;
+}
+
 .scene {
   position: relative;
   display: flex;
